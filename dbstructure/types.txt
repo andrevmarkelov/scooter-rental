@@ -1,0 +1,18 @@
+-- Table: public.types
+
+-- DROP TABLE IF EXISTS public.types;
+
+CREATE TABLE IF NOT EXISTS public.types
+(
+    id integer NOT NULL DEFAULT nextval('types_id_seq'::regclass),
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    CONSTRAINT types_pkey PRIMARY KEY (id),
+    CONSTRAINT types_name_key UNIQUE (name)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.types
+    OWNER to postgres;

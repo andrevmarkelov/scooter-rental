@@ -1,0 +1,52 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px 0;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+      margin-right: 10px;
+    }
+
+    .title {
+      line-height: 19px;
+
+      h1 {
+        color: #298880;
+        text-transform: uppercase;
+        font-size: 20px;
+        letter-spacing: 4px;
+      }
+
+      p {
+        color: #5E5875;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .loginButton {
+    cursor: pointer;
+    background: none;
+    border: 1px solid #2A9D8F;
+    text-transform: uppercase;
+    color: #5E5875;
+    padding: 7px 30px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 40px;
+    transition: 0.3s all;
+
+    &:hover {
+      background: #2A9D8F;
+      color: #ffffff;
+    }
+  }
+}

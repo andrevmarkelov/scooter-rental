@@ -1,0 +1,23 @@
+-- Table: public.specifications
+
+-- DROP TABLE IF EXISTS public.specifications;
+
+CREATE TABLE IF NOT EXISTS public.specifications
+(
+    id integer NOT NULL DEFAULT nextval('specifications_id_seq'::regclass),
+    title character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "scooterId" integer,
+    CONSTRAINT specifications_pkey PRIMARY KEY (id),
+    CONSTRAINT "specifications_scooterId_fkey" FOREIGN KEY ("scooterId")
+        REFERENCES public.scooters (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.specifications
+    OWNER to postgres;

@@ -1,0 +1,31 @@
+-- Table: public.scooters
+
+-- DROP TABLE IF EXISTS public.scooters;
+
+CREATE TABLE IF NOT EXISTS public.scooters
+(
+    id integer NOT NULL DEFAULT nextval('scooters_id_seq'::regclass),
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    image character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    price integer NOT NULL,
+    created_at timestamp with time zone,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "typeId" integer,
+    "brandId" integer,
+    CONSTRAINT scooters_pkey PRIMARY KEY (id),
+    CONSTRAINT scooters_name_key UNIQUE (name),
+    CONSTRAINT "scooters_brandId_fkey" FOREIGN KEY ("brandId")
+        REFERENCES public.brands (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    CONSTRAINT "scooters_typeId_fkey" FOREIGN KEY ("typeId")
+        REFERENCES public.types (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.scooters
+    OWNER to postgres;

@@ -1,0 +1,27 @@
+-- Table: public.type_brands
+
+-- DROP TABLE IF EXISTS public.type_brands;
+
+CREATE TABLE IF NOT EXISTS public.type_brands
+(
+    id integer NOT NULL DEFAULT nextval('type_brands_id_seq'::regclass),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "typeId" integer,
+    "brandId" integer,
+    CONSTRAINT type_brands_pkey PRIMARY KEY (id),
+    CONSTRAINT "type_brands_typeId_brandId_key" UNIQUE ("typeId", "brandId"),
+    CONSTRAINT "type_brands_brandId_fkey" FOREIGN KEY ("brandId")
+        REFERENCES public.brands (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT "type_brands_typeId_fkey" FOREIGN KEY ("typeId")
+        REFERENCES public.types (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.type_brands
+    OWNER to postgres;

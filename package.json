@@ -1,0 +1,33 @@
+{
+  "name": "scooter-rental",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrevmarkelov/scooter-rental.git"
+  },
+  "author": "Markelov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrevmarkelov/scooter-rental/issues"
+  },
+  "homepage": "https://github.com/andrevmarkelov/scooter-rental#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

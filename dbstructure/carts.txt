@@ -1,0 +1,21 @@
+-- Table: public.carts
+
+-- DROP TABLE IF EXISTS public.carts;
+
+CREATE TABLE IF NOT EXISTS public.carts
+(
+    id integer NOT NULL DEFAULT nextval('carts_id_seq'::regclass),
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "userId" integer,
+    CONSTRAINT carts_pkey PRIMARY KEY (id),
+    CONSTRAINT "carts_userId_fkey" FOREIGN KEY ("userId")
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.carts
+    OWNER to postgres;

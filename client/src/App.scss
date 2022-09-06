@@ -1,0 +1,14 @@
+.catalog-wrapper {
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+
+  .catalog-list {
+    width: 300px;
+    margin-right: 50px;
+  }
+
+  .list-product {
+    flex: 1;
+  }
+}
