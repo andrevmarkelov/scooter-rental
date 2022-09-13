@@ -2,12 +2,16 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Context } from '..';
-import { Header } from '../components/Header';
 import { createBrand, createScooter, createType, fetchBrand, fetchType } from '../http/scooterApi';
+import styles from '../styles/Admin.module.scss'
+import { Link } from 'react-router-dom';
+import { CATALOG_ROUTE } from '../utils/consts';
+import { fetchUsers } from '../http/userApi';
 
 
 export const Admin = observer(() => {
   const { scooter } = useContext(Context);
+  const { user } = useContext(Context);
 
   const [type, setType] = useState('');
   const [brand, setBrand] = useState('');
@@ -20,7 +24,8 @@ export const Admin = observer(() => {
   useEffect(() => {
     fetchType().then(data => scooter.setTypes(data));
     fetchBrand().then(data => scooter.setBrands(data));
-  }, [scooter]);
+    fetchUsers().then(data => user.setListUsers(data));
+  }, [scooter, user]);
 
   const addType = () => {
     createType({ name: type }).then(() => setType(''));
@@ -59,45 +64,123 @@ export const Admin = observer(() => {
   }
 
   return (
-    <div className="wrapper">
-      <Header />
-      <div className="createType">
-        <p>Add a type</p>
-        <input type="text" placeholder='Enter the type' value={type} onChange={event => setType(event.target.value)} />
-        <button onClick={addType}>Add</button>
+    <div className={styles.wrapper}>
+      <div className={styles.menu}>
+        <Link to={CATALOG_ROUTE} className={styles.logo}>
+          <img width={50} height={50} src='/image/logotype.png' alt='logo' />
+          <div className={styles.title}>
+            <h1>Scooter Rental</h1>
+            <p>Anytime Everywhere</p>
+          </div>
+        </Link>
+        <ul className={styles.list}>
+          <li>Add a type</li>
+          <li>Add a brand</li>
+          <li>Add a product</li>
+          <li>Users</li>
+        </ul>
       </div>
-      <div className="createBrand">
-        <p>Add a brand</p>
-        <input type="text" placeholder='Enter the brand' value={brand} onChange={event => setBrand(event.target.value)} />
-        <button onClick={addBrand}>Add</button>
-      </div>
-      <div className="createBrand">
-        <p>Add a product</p>
-        <input type="file" onChange={selectImage} />
-        <input type="text" placeholder='Product Name' value={name} onChange={event => setName(event.target.value)} />
-        <input type="text" placeholder='Product Price' value={price} onChange={event => setPrice(Number(event.target.value))} />
-        <div className="selectType">
-          <span>Select the type</span>
-          <div>{scooter.types.map(item => <input key={item.id} onClick={() => scooter.setSelectedType(item)} value={item.name} />)}</div>
-        </div>
-        <div className="selectBrand">
-          <span>Select the brand</span>
-          <div>{scooter.brands.map(item => <input key={item.id} onClick={() => scooter.setSelectedBrand(item)} value={item.name} />)}</div>
-        </div>
-        <div>
-          <p>Specifications</p>
-          <button onClick={addSpecifications}>Add a specification</button>
-          {specifications.map(item =>
-            <div key={item.id}>
-              <input type="text" placeholder='Title specifications' value={item.title} onChange={event => changeSpecifications('title', event.target.value, item.id)} />
-              <input type="text" placeholder='Specification description' value={item.description} onChange={event => changeSpecifications('description', event.target.value, item.id)} />
-              <button onClick={() => removeSpecifications(item.id)}>x</button>
-            </div>
-          )}
-          <div>
+      <div className={styles.content}>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <p>Add a type</p>
+          </div>
+          <div className={styles.cardBody}>
+            <input type="text" placeholder='Enter the type' value={type} onChange={event => setType(event.target.value)} />
+          </div>
+          <div className={styles.cardFooter}>
+            <button onClick={addType}>Add</button>
           </div>
         </div>
-        <button onClick={addScooter}>Add</button>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <p>Add a brand</p>
+          </div>
+          <div className={styles.cardBody}>
+            <input type="text" placeholder='Enter the brand' value={brand} onChange={event => setBrand(event.target.value)} />
+          </div>
+          <div className={styles.cardFooter}>
+            <button onClick={addBrand}>Add</button>
+          </div>
+        </div>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <p>Add a product</p>
+          </div>
+          <div className={styles.cardBody}>
+            <input type="file" onChange={selectImage} />
+            <input type="text" placeholder='Product Name' value={name} onChange={event => setName(event.target.value)} />
+            <input type="number" placeholder='Product Price' value={price} onChange={event => setPrice(Number(event.target.value))} />
+            <div className={styles.selection}>
+              <span>Select the type</span>
+              <div>{scooter.types.map(item =>
+                <input
+                  key={item.id}
+                  onClick={() => scooter.setSelectedType(item)}
+                  readonly="readonly"
+                  className={item.id === scooter.selectedType.id ? 'active' : ''}
+                  defaultValue={item.name} />)}
+              </div>
+            </div>
+            <div className={styles.selection}>
+              <span>Select the brand</span>
+              <div>{scooter.brands.map(item =>
+                <input
+                  key={item.id}
+                  onClick={() => scooter.setSelectedBrand(item)}
+                  readonly="readonly"
+                  className={item.id === scooter.selectedBrand.id ? 'active' : ''}
+                  defaultValue={item.name} />)}
+              </div>
+            </div>
+            <div className={styles.specifications}>
+              <p>Specifications</p>
+              <button onClick={addSpecifications} className={styles.addSpecificationButton}>Add a specification</button>
+              {specifications.map(item =>
+                <div key={item.id} className={styles.specificationsItem}>
+                  <input type="text" placeholder='Title' value={item.title} onChange={event => changeSpecifications('title', event.target.value, item.id)} />
+                  <input type="text" placeholder='Description' value={item.description} onChange={event => changeSpecifications('description', event.target.value, item.id)} />
+                  <button onClick={() => removeSpecifications(item.id)}>
+                    <img src="/image/delete-icon.png" width={30} height={30} alt="Deleting a specification" />
+                  </button>
+                </div>
+              )}
+              <div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.cardFooter}>
+            <button onClick={addScooter}>Add</button>
+          </div>
+        </div>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <p>List users</p>
+          </div>
+          <div className={styles.cardBody}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Role</th>
+                  <th>Registration date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {user.listUsers.map(item =>
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.role}</td>
+                  <td>{item.createdAt}</td>
+                </tr>)}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   )

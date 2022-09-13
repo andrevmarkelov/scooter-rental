@@ -1,0 +1,190 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+
+  .menu {
+    width: 250px;
+    background-color: #151529;
+    padding: 30px 20px;
+
+    .logo {
+      display: flex;
+      text-decoration: none;
+      margin-bottom: 40px;
+
+      .title {
+        margin-left: 10px;
+
+        h1 {
+          font-size: 15px;
+          letter-spacing: 4px;
+          font-weight: normal;
+          color: #ffffff;
+        }
+
+        p {
+          font-size: 13px;
+          color: #a3a6b7;
+        }
+      }
+    }
+
+    .list {
+      list-style: none;
+
+      li {
+        color: #a3a6b7;
+        font-size: 14px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: 0.3s all;
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    background-color: #f2f2f7;
+    padding: 50px;
+
+    .card {
+      background-color: #ffffff;
+      border: 0 solid rgba(0,0,0,.125);
+      border-radius: 3px;
+      box-shadow: 0 3px 3px rgba(56,65,74,0.1);
+      margin-bottom: 50px;
+
+      .cardHeader {
+        border-bottom: 1px solid #e9ebec;
+        padding: 10px;
+      }
+
+      .cardBody {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+
+        input {
+          color: #212529;
+          border: 1px solid #ced4da;
+          outline: none;
+          padding: 10px;
+          border-radius: 2px;
+          margin-bottom: 10px;
+          background-color: #ffffff;
+          transition: 0.3s all;
+
+          &:focus {
+            color: #212529;
+            border-color: #a59cd9;
+          }
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+
+          th {
+            text-align: start;
+            font-size: 14px;
+          }
+
+          td, th {
+            border: 1px solid #ced4da;
+            padding: 5px 10px;
+          }
+        }
+
+        .specifications {
+          p {
+            margin-bottom: 10px;
+          }
+
+          .addSpecificationButton {
+            color: #4b38b3;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 3px 15px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            background-color: rgba(75,56,179,.1);
+            transition: 0.3s all;
+
+            &:hover {
+              background-color: #4b38b3;
+              color: #ffffff;
+            }
+          }
+
+          .specificationsItem {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            margin-bottom: 10px;
+
+            button {
+              cursor: pointer;
+              border: none;
+              background: none;
+            }
+          }
+        }
+
+        .selection {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 20px;
+
+          span {
+            display: block;
+            width: 120px;
+            margin-right: 10px;
+            font-size: 13px;
+          }
+
+          div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+
+            input {
+              cursor: pointer;
+              border-radius: 20px;
+              padding: 7px;
+            }
+          }
+        }
+      }
+
+      .cardFooter {
+        border-top: 1px solid #e9ebec;
+        padding: 10px;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          color: #4b38b3;
+          border: none;
+          cursor: pointer;
+          font-size: 15px;
+          padding: 3px 15px;
+          border-radius: 3px;
+          background-color: rgba(75,56,179,.1);
+          transition: 0.3s all;
+
+          &:hover {
+            background-color: #4b38b3;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
